@@ -14,6 +14,7 @@ import imageSearch from "react-native-google-image-search";
 
 import { Actions } from "react-native-router-flux";
 import { createWishlistGame } from "./functions";
+import { Dropdown } from "react-native-material-dropdown";
 
 export default class App extends React.Component {
   state = {
@@ -237,7 +238,34 @@ export default class App extends React.Component {
     this.setState({ orderReversed: value });
   };
 
+  filterPlateforms = text => {
+    this.setState({ filter: text });
+    const games = [...this.state.wishlist];
+    let filterGames = [];
+    for (let i = 0; i < games.length; i++) {
+      if (this.state.filter === "All") {
+        AsyncStorage.getItem("wishlist").then(games => {
+          this.setState({ wishlist: JSON.parse(games) });
+        });
+        return;
+      } else if (this.state.filter === games[i].plateform) {
+        filterGames.push(games[i]);
+      }
+    }
+    this.setState({ wishlist: filterGames });
+    return;
+  };
   render() {
+    //declare an empty array for the dropdown data
+    const data = [{ value: "All" }];
+    let plateforms = [];
+    for (let i = 0; i < this.state.wishlist.length; i++) {
+      plateforms.push(this.state.wishlist[i].plateform);
+    }
+    plateforms = Array.from(new Set(plateforms));
+    for (let i = 0; i < plateforms.length; i++) {
+      data.push({ value: plateforms[i] });
+    }
     const display = (
       <GameDisplay
         componentID="wishlist"
@@ -269,6 +297,13 @@ export default class App extends React.Component {
           />
           <Button color="purple" title="Genre" onPress={this.sortByGenre} />
           <Button color="maroon" title="Price" onPress={this.sortByPrice} />
+        </View>
+        <View style={styles.dropdown}>
+          <Dropdown
+            onChangeText={text => this.filterPlateforms(text)}
+            label="Filter Plateforms"
+            data={data}
+          />
         </View>
         <View style={styles.gameBox}>
           {this.state.isEmpty ? noGames : display}

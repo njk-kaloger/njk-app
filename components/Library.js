@@ -13,7 +13,7 @@ import styles from "./styles";
 import imageSearch from "react-native-google-image-search";
 
 import { Actions } from "react-native-router-flux";
-import { createLibraryGame, removeDuplicates } from "./functions";
+import { createLibraryGame } from "./functions";
 import { Dropdown } from "react-native-material-dropdown";
 
 export default class App extends React.Component {

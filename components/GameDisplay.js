@@ -57,13 +57,13 @@ export default class GameDisplay extends React.Component {
             data={this.props.collection}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => this.moveToTitle(item.id)}>
+                <Text style={styles.libraryTitle}> {item.title} </Text>
                 <View style={styles.item}>
                   <Image
                     style={styles.libraryImage}
                     source={{ uri: item.image }}
                   />
 
-                  <Text style={styles.libraryTitle}> {item.title} </Text>
                   <Text style={styles.libraryPlateform}>
                     {" "}
                     {item.plateform}{" "}
@@ -89,13 +89,13 @@ export default class GameDisplay extends React.Component {
             data={this.props.collection}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => this.moveToTitle(item.id)}>
+                <Text style={styles.libraryTitle}> {item.title} </Text>
                 <View style={styles.item}>
                   <Image
                     style={styles.libraryImage}
                     source={{ uri: item.image }}
                   />
 
-                  <Text style={styles.libraryTitle}> {item.title} </Text>
                   <Text style={styles.libraryPlateform}>
                     {" "}
                     {item.plateform}{" "}

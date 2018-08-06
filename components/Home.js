@@ -33,18 +33,15 @@ export default class Home extends React.Component {
               <Text style={styles.homeText}>Game Library</Text>
             </View>
           </TouchableOpacity>
-          <View style={styles.homeBox}>
-            <Text style={styles.homeText}>Library Analytics</Text>
-          </View>
-        </View>
-        <View style={styles.homeRow}>
           <TouchableOpacity onPress={this.moveToWishlist}>
             <View style={styles.homeBox}>
               <Text style={styles.homeText}>Wishlist</Text>
             </View>
           </TouchableOpacity>
+        </View>
+        <View style={styles.homeRow}>
           <View style={styles.homeBox}>
-            <Text style={styles.homeText}>Place Four</Text>
+            <Text style={styles.homeText}>Library Analytics</Text>
           </View>
         </View>
       </ImageBackground>
