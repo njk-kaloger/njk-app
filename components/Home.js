@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground
+} from "react-native";
 import styles from "./styles";
 import { Actions } from "react-native-router-flux";
 
@@ -11,9 +17,16 @@ export default class Home extends React.Component {
   moveToWishlist = () => {
     Actions.wishlist();
   };
+
   render() {
     return (
-      <View style={styles.container}>
+      <ImageBackground
+        source={{
+          uri:
+            "https://cdn.images.dailystar.co.uk/dynamic/184/photos/675000/620x/PS4-Xbox-One-and-Nintendo-Switch-got-some-BIG-news-this-week-that-s-great-for-future-games-659267.jpg"
+        }}
+        style={styles.containerImage}
+      >
         <View style={styles.homeRow}>
           <TouchableOpacity onPress={this.moveToLibrary}>
             <View style={styles.homeBox}>
@@ -34,7 +47,7 @@ export default class Home extends React.Component {
             <Text style={styles.homeText}>Place Four</Text>
           </View>
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }

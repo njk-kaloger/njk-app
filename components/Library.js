@@ -13,7 +13,8 @@ import styles from "./styles";
 import imageSearch from "react-native-google-image-search";
 
 import { Actions } from "react-native-router-flux";
-import { createLibraryGame } from "./functions";
+import { createLibraryGame, removeDuplicates } from "./functions";
+import { Dropdown } from "react-native-material-dropdown";
 
 export default class App extends React.Component {
   state = {
@@ -247,7 +248,36 @@ export default class App extends React.Component {
     this.setState({ orderReversed: value });
   };
 
+  filterPlateforms = text => {
+    this.setState({ filter: text });
+    const games = [...this.state.games];
+    let filterGames = [];
+    for (let i = 0; i < games.length; i++) {
+      if (this.state.filter === "All") {
+        AsyncStorage.getItem("games").then(games => {
+          this.setState({ games: JSON.parse(games) });
+        });
+        return;
+      } else if (this.state.filter === games[i].plateform) {
+        filterGames.push(games[i]);
+      }
+    }
+    this.setState({ games: filterGames });
+    return;
+  };
+
   render() {
+    //declare an empty array for the dropdown data
+    const data = [{ value: "All" }];
+    let plateforms = [];
+    for (let i = 0; i < this.state.games.length; i++) {
+      plateforms.push(this.state.games[i].plateform);
+    }
+    plateforms = Array.from(new Set(plateforms));
+    for (let i = 0; i < plateforms.length; i++) {
+      data.push({ value: plateforms[i] });
+    }
+
     const display = (
       <GameDisplay
         componentID="library"
@@ -280,6 +310,13 @@ export default class App extends React.Component {
             color="black"
             title="Completion"
             onPress={this.sortByCompletion}
+          />
+        </View>
+        <View style={styles.dropdown}>
+          <Dropdown
+            onChangeText={text => this.filterPlateforms(text)}
+            label="Filter Plateforms"
+            data={data}
           />
         </View>
         <View style={styles.gameBox}>

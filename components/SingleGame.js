@@ -44,8 +44,8 @@ export default class SingleGame extends React.Component {
         <ScrollView contentContainerStyle={styles.singlePageScroll}>
           <Image style={styles.singleImage} source={{ uri: animatedImage }} />
           <Text style={styles.singleTitle}>{title} </Text>
-          <Text style={styles.singlePlateform}>Plateform: {plateform}</Text>
-          <Text style={styles.singleGenre}>Genre: {genre} </Text>
+          <Text style={styles.singlePlateform}>{plateform}</Text>
+          <Text style={styles.singleGenre}>{genre} </Text>
           <Text style={styles.singlePrice}>${price} </Text>
         </ScrollView>
       );
@@ -57,11 +57,9 @@ export default class SingleGame extends React.Component {
         <ScrollView contentContainerStyle={styles.singlePageScroll}>
           <Image style={styles.singleImage} source={{ uri: animatedImage }} />
           <Text style={styles.singleTitle}>{title} </Text>
-          <Text style={styles.singlePlateform}>Plateform: {plateform}</Text>
-          <Text style={styles.singleGenre}>Genre: {genre} </Text>
-          <Text style={styles.singleGenre}>
-            Completetion: {completetionRate}%
-          </Text>
+          <Text style={styles.singlePlateform}>{plateform}</Text>
+          <Text style={styles.singleGenre}>{genre} </Text>
+          <Text style={styles.singleRate}>{completetionRate}%</Text>
 
           <Text style={styles.singleDesc}>{desc} </Text>
         </ScrollView>

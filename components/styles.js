@@ -14,6 +14,17 @@ export default (styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  dropdown: {
+    alignItems: "flex-start",
+    justifyContent: "flex-start"
+  },
+  containerImage: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%"
+  },
   noGamesView: {
     flex: 1,
     alignItems: "center",
@@ -26,7 +37,7 @@ export default (styles = StyleSheet.create({
   gameBox: {
     borderColor: "red",
     width: 565,
-    height: "80%",
+    height: "70%",
     paddingRight: 100,
     paddingLeft: 100
   },
@@ -103,26 +114,44 @@ export default (styles = StyleSheet.create({
     height: 200
   },
   singleTitle: {
+    fontWeight: "bold",
+    color: "blue",
+    fontStyle: "italic",
+    fontSize: 20,
+    textAlign: "center"
+  },
+  singleGenre: {
+    color: "purple",
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
   },
-  singleGenre: {
+  singleRate: {
+    color: "maroon",
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
   },
   singlePlateform: {
+    color: "green",
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
   },
   singleDesc: {
+    fontStyle: "italic",
     fontSize: 15,
     textAlign: "center"
   },
   singlePageScroll: {
     marginBottom: 100
+  },
+  singlePrice: {
+    color: "maroon",
+    paddingTop: 20,
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center"
   },
   homeRow: {
     flexDirection: "row",

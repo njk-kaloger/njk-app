@@ -209,6 +209,24 @@ export default class App extends React.Component {
     }
   };
 
+  sortByPrice = () => {
+    const wishlist = [...this.state.wishlist];
+    wishlist.sort(this.comparePrice);
+    this.setState({ wishlist });
+  };
+
+  comparePrice = (a, b) => {
+    if (this.state.orderReversed === false) {
+      if (a.price < b.price) return -1;
+      if (a.price > b.price) return 1;
+      return 0;
+    } else {
+      if (a.price > b.price) return -1;
+      if (a.price < b.price) return 1;
+      return 0;
+    }
+  };
+
   sortByTitle = () => {
     const wishlist = [...this.state.wishlist];
     wishlist.sort(this.compareTitle);
@@ -250,6 +268,7 @@ export default class App extends React.Component {
             onPress={this.sortByPlateform}
           />
           <Button color="purple" title="Genre" onPress={this.sortByGenre} />
+          <Button color="maroon" title="Price" onPress={this.sortByPrice} />
         </View>
         <View style={styles.gameBox}>
           {this.state.isEmpty ? noGames : display}
