@@ -83,22 +83,21 @@ export default class SingleGame extends React.Component {
       //change the type to reflect the title and the component
       type = "Remove " + title + " From Library";
     }
+    const addButton = (
+      <Button
+        width="100%"
+        color="green"
+        title={addGame}
+        onPress={() => this.buyGame(this.props.details)}
+      />
+    );
     return (
       <View>
         <SingleGameDisplay
           id={this.props.componentID}
           details={this.props.details}
         />
-        {this.props.componentID === "wishlist" ? (
-          <Button
-            width="100%"
-            color="green"
-            title={addGame}
-            onPress={() => this.buyGame(this.props.details)}
-          />
-        ) : (
-          ""
-        )}
+        {this.props.componentID === "wishlist" ? addButton : ""}
         <Button
           width="100%"
           color="purple"
