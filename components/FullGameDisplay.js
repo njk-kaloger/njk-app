@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 
-export default class SingleGame extends React.Component {
+export default class FullGameDisplay extends React.Component {
   //constructor accepts props
   constructor(props) {
     super(props);

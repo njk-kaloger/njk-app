@@ -4,7 +4,7 @@ import styles from "./styles";
 import { Text, View, FlatList, Image, ScrollView, Button } from "react-native";
 import { Actions } from "react-native-router-flux";
 
-export default class SingleGame extends React.Component {
+export default class SingleGameDisplay extends React.Component {
   //constructor accepts props
   constructor(props) {
     super(props);
