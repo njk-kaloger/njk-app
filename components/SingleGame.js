@@ -32,12 +32,14 @@ export default class SingleGame extends React.Component {
     } = this.props.details;
     //delcare type as empty string
     let type = "";
+    let addGame = "";
     //set the edit button message to contain the title
     let edit = "Edit Details of " + title;
     //check which component needs to be mounted
     if (this.props.componentID === "wishlist") {
       //change the type to reflect the title and the component
       type = "Remove " + title + " From Wishlist";
+      addGame = "Add " + title + " to Library";
     } else if (this.props.componentID === "library") {
       //change the type to reflect the title and the component
       type = "Remove " + title + " From Library";
@@ -48,14 +50,18 @@ export default class SingleGame extends React.Component {
           id={this.props.componentID}
           details={this.props.details}
         />
-        <Button
-          width="100%"
-          color="purple"
-          title={edit}
-          onPress={() =>
-            this.moveToUpdateGame(this.props.details, this.props.updateGame)
-          }
-        />
+        {this.props.componentID === "wishlist" ? (
+          <Button
+            width="100%"
+            color="green"
+            title={addGame}
+            onPress={() =>
+              this.moveToUpdateGame(this.props.details, this.props.updateGame)
+            }
+          />
+        ) : (
+          ""
+        )}
         <Button
           width="100%"
           color="purple"
