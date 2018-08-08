@@ -2,8 +2,18 @@ import React from "react";
 import styles from "./styles";
 import SingleGameDisplay from "./SingleGameDisplay";
 
-import { Text, View, FlatList, Image, ScrollView, Button } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  ScrollView,
+  Button,
+  AsyncStorage,
+  Alert
+} from "react-native";
 import { Actions } from "react-native-router-flux";
+import { createLibraryGame } from "./functions";
 
 export default class SingleGame extends React.Component {
   //constructor accepts props
@@ -12,9 +22,38 @@ export default class SingleGame extends React.Component {
     //based on the title of the game passed in you action refresh to change the title of the page accordingly
     Actions.refresh({ title: props.details.title });
   }
+  componentDidMount() {
+    AsyncStorage.getItem("games").then(ownedGames => {
+      this.setState({ collection: JSON.parse(ownedGames) });
+    });
+  }
   //movement function that accepts the game details and the edit function and passes them to the edit page
   moveToUpdateGame = (details, edit) => {
     Actions.edit({ details: details, edit: edit });
+  };
+
+  buyGame = details => {
+    const title = details.title;
+    const platform = details.platform;
+    const genre = details.genre;
+    const profileImageURL = details.image;
+    const libraryImageURL = details.animatedImage;
+    const desc = "Game purchased please edit details";
+    const game = createLibraryGame(
+      title,
+      platform,
+      desc,
+      genre,
+      profileImageURL,
+      libraryImageURL
+    );
+
+    const array = [game];
+    const games = this.state.collection.concat(array);
+    console.log(games);
+    AsyncStorage.setItem("games", JSON.stringify(games));
+    this.props.deleteGame(details.id);
+    Alert.alert(game.title + " Successfully Added To Library");
   };
 
   render() {
@@ -55,9 +94,7 @@ export default class SingleGame extends React.Component {
             width="100%"
             color="green"
             title={addGame}
-            onPress={() =>
-              this.moveToUpdateGame(this.props.details, this.props.updateGame)
-            }
+            onPress={() => this.buyGame(this.props.details)}
           />
         ) : (
           ""
