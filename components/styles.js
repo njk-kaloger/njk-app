@@ -88,7 +88,7 @@ export default (styles = StyleSheet.create({
   libraryGenre: {
     color: "purple"
   },
-  libraryPlateform: {
+  libraryPlatform: {
     color: "green"
   },
   libraryButtons: {
@@ -132,7 +132,7 @@ export default (styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center"
   },
-  singlePlateform: {
+  singlePlatform: {
     color: "green",
     fontSize: 20,
     fontWeight: "bold",

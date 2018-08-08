@@ -64,10 +64,7 @@ export default class GameDisplay extends React.Component {
                     source={{ uri: item.image }}
                   />
 
-                  <Text style={styles.libraryPlateform}>
-                    {" "}
-                    {item.plateform}{" "}
-                  </Text>
+                  <Text style={styles.libraryPlatform}> {item.platform} </Text>
                   <Text style={styles.libraryGenre}> {item.genre} </Text>
                   <Text style={styles.libraryPrice}>${item.price}</Text>
                 </View>
@@ -96,13 +93,10 @@ export default class GameDisplay extends React.Component {
                     source={{ uri: item.image }}
                   />
 
-                  <Text style={styles.libraryPlateform}>
-                    {" "}
-                    {item.plateform}{" "}
-                  </Text>
+                  <Text style={styles.libraryPlatform}> {item.platform} </Text>
                   <Text style={styles.libraryGenre}> {item.genre} </Text>
                   <Text style={styles.libraryCompletion}>
-                    {item.completetionRate}%
+                    {item.completionRate}%
                   </Text>
                 </View>
               </TouchableOpacity>

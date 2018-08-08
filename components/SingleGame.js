@@ -20,11 +20,11 @@ export default class SingleGame extends React.Component {
     //delcare each game detail
     const {
       title,
-      plateform,
+      platform,
       image,
       desc,
       price,
-      completetionRate,
+      completionRate,
       genre,
       id,
       animatedImage
@@ -44,7 +44,7 @@ export default class SingleGame extends React.Component {
         <ScrollView contentContainerStyle={styles.singlePageScroll}>
           <Image style={styles.singleImage} source={{ uri: animatedImage }} />
           <Text style={styles.singleTitle}>{title} </Text>
-          <Text style={styles.singlePlateform}>{plateform}</Text>
+          <Text style={styles.singlePlatform}>{platform}</Text>
           <Text style={styles.singleGenre}>{genre} </Text>
           <Text style={styles.singlePrice}>${price} </Text>
         </ScrollView>
@@ -57,9 +57,9 @@ export default class SingleGame extends React.Component {
         <ScrollView contentContainerStyle={styles.singlePageScroll}>
           <Image style={styles.singleImage} source={{ uri: animatedImage }} />
           <Text style={styles.singleTitle}>{title} </Text>
-          <Text style={styles.singlePlateform}>{plateform}</Text>
+          <Text style={styles.singlePlatform}>{platform}</Text>
           <Text style={styles.singleGenre}>{genre} </Text>
-          <Text style={styles.singleRate}>{completetionRate}%</Text>
+          <Text style={styles.singleRate}>{completionRate}%</Text>
 
           <Text style={styles.singleDesc}>{desc} </Text>
         </ScrollView>

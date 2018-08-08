@@ -22,7 +22,8 @@ export default class App extends React.Component {
     wish: [],
     isEmpty: true,
     isStored: false,
-    orderReversed: false
+    orderReversed: false,
+    currentSort: ""
   };
 
   constructor() {
@@ -46,7 +47,7 @@ export default class App extends React.Component {
   addGame = game => {
     for (let i = 0; i < this.state.games.length; i++) {
       if (game.id === this.state.games[i].id) {
-        Alert.alert("You Already Own " + game.title + " on " + game.plateform);
+        Alert.alert("You Already Own " + game.title + " on " + game.platform);
         return;
       }
     }
@@ -77,10 +78,7 @@ export default class App extends React.Component {
     for (let i = 0; i < games.length; i++) {
       if (id === games[i].id) {
         let message =
-          games[i].title +
-          " on " +
-          games[i].plateform +
-          " Successfully Updated";
+          games[i].title + " on " + games[i].platform + " Successfully Updated";
 
         switch (itemUpdated) {
           case "image":
@@ -95,14 +93,14 @@ export default class App extends React.Component {
           case "genre":
             games[i].genre = updatedInput;
             break;
-          case "plateform":
-            games[i].plateform = updatedInput;
+          case "platform":
+            games[i].platform = updatedInput;
             break;
           case "desc":
             games[i].desc = updatedInput;
             break;
-          case "completetionRate":
-            games[i].completetionRate = updatedInput;
+          case "completionRate":
+            games[i].completionRate = updatedInput;
             break;
           default:
             break;
@@ -125,7 +123,7 @@ export default class App extends React.Component {
         let message =
           games[i].title +
           " on " +
-          games[i].plateform +
+          games[i].platform +
           " Successfully Removed From Library";
         games.splice(i, 1);
         this.setState({ games });
@@ -140,7 +138,7 @@ export default class App extends React.Component {
 
   registerGame = (
     titleInput,
-    plateformInput,
+    platformInput,
     descInput,
     genreInput,
     profileImageURL,
@@ -148,7 +146,7 @@ export default class App extends React.Component {
   ) => {
     const game = createLibraryGame(
       titleInput,
-      plateformInput,
+      platformInput,
       descInput,
       genreInput,
       profileImageURL,
@@ -172,22 +170,22 @@ export default class App extends React.Component {
     });
   };
 
-  comparePlateform = (a, b) => {
+  comparePlatform = (a, b) => {
     if (this.state.orderReversed === false) {
-      if (a.plateform < b.plateform) return -1;
-      if (a.plateform > b.plateform) return 1;
+      if (a.platform < b.platform) return -1;
+      if (a.platform > b.platform) return 1;
       return 0;
     } else {
-      if (a.plateform > b.plateform) return -1;
-      if (a.plateform < b.plateform) return 1;
+      if (a.platform > b.platform) return -1;
+      if (a.platform < b.platform) return 1;
       return 0;
     }
   };
 
-  sortByPlateform = () => {
+  sortByPlatform = () => {
     const games = [...this.state.games];
-    games.sort(this.comparePlateform);
-    this.setState({ games });
+    games.sort(this.comparePlatform);
+    this.setState({ games, currentSort: "platform" });
   };
 
   compareGenre = (a, b) => {
@@ -205,7 +203,7 @@ export default class App extends React.Component {
   sortByGenre = () => {
     const games = [...this.state.games];
     games.sort(this.compareGenre);
-    this.setState({ games });
+    this.setState({ games, currentSort: "genre" });
   };
 
   compareTitle = (a, b) => {
@@ -223,32 +221,48 @@ export default class App extends React.Component {
   sortByTitle = () => {
     const games = [...this.state.games];
     games.sort(this.compareTitle);
-    this.setState({ games });
+    this.setState({ games, currentSort: "title" });
   };
 
   compareCompletion = (a, b) => {
     if (this.state.orderReversed === false) {
-      if (a.completetionRate < b.completetionRate) return -1;
-      if (a.completetionRate > b.completetionRate) return 1;
-      return 0;
+      return parseFloat(b.completionRate) - parseFloat(a.completionRate);
     } else {
-      if (a.completetionRate > b.completetionRate) return -1;
-      if (a.completetionRate < b.completetionRate) return 1;
-      return 0;
+      return parseFloat(a.completionRate) - parseFloat(b.completionRate);
     }
   };
 
   sortByCompletion = () => {
     const games = [...this.state.games];
     games.sort(this.compareCompletion);
-    this.setState({ games });
+    this.setState({ games, currentSort: "completion" });
+  };
+
+  checkSort = () => {
+    switch (this.state.currentSort) {
+      case "title":
+        this.sortByTitle();
+        break;
+      case "genre":
+        this.sortByGenre();
+        break;
+      case "platform":
+        this.sortByPlatform();
+        break;
+      case "completion":
+        this.sortByCompletion();
+        break;
+      default:
+        break;
+    }
   };
 
   toggleSwitch = value => {
     this.setState({ orderReversed: value });
+    this.checkSort();
   };
 
-  filterPlateforms = text => {
+  filterPlatforms = text => {
     this.setState({ filter: text });
     const games = [...this.state.games];
     let filterGames = [];
@@ -258,7 +272,7 @@ export default class App extends React.Component {
           this.setState({ games: JSON.parse(games) });
         });
         return;
-      } else if (this.state.filter === games[i].plateform) {
+      } else if (this.state.filter === games[i].platform) {
         filterGames.push(games[i]);
       }
     }
@@ -268,14 +282,15 @@ export default class App extends React.Component {
 
   render() {
     //declare an empty array for the dropdown data
+    let sorting;
     const data = [{ value: "All" }];
-    let plateforms = [];
+    let platforms = [];
     for (let i = 0; i < this.state.games.length; i++) {
-      plateforms.push(this.state.games[i].plateform);
+      platforms.push(this.state.games[i].platform);
     }
-    plateforms = Array.from(new Set(plateforms));
-    for (let i = 0; i < plateforms.length; i++) {
-      data.push({ value: plateforms[i] });
+    platforms = Array.from(new Set(platforms));
+    for (let i = 0; i < platforms.length; i++) {
+      data.push({ value: platforms[i] });
     }
 
     const display = (
@@ -302,8 +317,8 @@ export default class App extends React.Component {
           <Button color="blue" title="Title" onPress={this.sortByTitle} />
           <Button
             color="green"
-            title="Plateform"
-            onPress={this.sortByPlateform}
+            title="Platform"
+            onPress={this.sortByPlatform}
           />
           <Button color="purple" title="Genre" onPress={this.sortByGenre} />
           <Button
@@ -314,8 +329,8 @@ export default class App extends React.Component {
         </View>
         <View style={styles.dropdown}>
           <Dropdown
-            onChangeText={text => this.filterPlateforms(text)}
-            label="Filter Plateforms"
+            onChangeText={text => this.filterPlatforms(text)}
+            label="Filter Platforms"
             data={data}
           />
         </View>

@@ -43,9 +43,9 @@ export default class AddGame extends React.Component {
         />
         <TextInput
           keyboardAppearance="dark"
-          onChangeText={text => this.setState({ plateformInput: text })}
+          onChangeText={text => this.setState({ platformInput: text })}
           style={styles.textInput}
-          placeholder="Game Plateform"
+          placeholder="Game Platform"
           returnKeyType="done"
           returnKeyLabel="done"
         />
@@ -86,7 +86,7 @@ export default class AddGame extends React.Component {
           onPress={() =>
             this.props.registerGame(
               this.state.titleInput,
-              this.state.plateformInput,
+              this.state.platformInput,
               this.state.descInput,
               this.state.genreInput,
               this.state.libraryImageURL,
@@ -109,9 +109,9 @@ export default class AddGame extends React.Component {
         />
         <TextInput
           keyboardAppearance="dark"
-          onChangeText={text => this.setState({ plateformInput: text })}
+          onChangeText={text => this.setState({ platformInput: text })}
           style={styles.textInput}
-          placeholder="Game Plateform"
+          placeholder="Game Platform"
           returnKeyType="done"
           returnKeyLabel="done"
         />
@@ -152,7 +152,7 @@ export default class AddGame extends React.Component {
           onPress={() =>
             this.props.registerGame(
               this.state.titleInput,
-              this.state.plateformInput,
+              this.state.platformInput,
               this.state.priceInput,
               this.state.genreInput,
               this.state.libraryImageURL,

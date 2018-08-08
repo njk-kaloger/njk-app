@@ -46,7 +46,7 @@ export default class App extends React.Component {
           "You Have " +
             game.title +
             " on " +
-            game.plateform +
+            game.platform +
             " in your wishlist"
         );
         return;
@@ -55,7 +55,7 @@ export default class App extends React.Component {
 
     for (let i = 0; i < this.state.collection.length; i++) {
       if (game.id === this.state.collection[i].id) {
-        Alert.alert("You Already Own " + game.title + " on " + game.plateform);
+        Alert.alert("You Already Own " + game.title + " on " + game.platform);
         return;
       }
     }
@@ -79,7 +79,7 @@ export default class App extends React.Component {
         let message =
           wishlist[i].title +
           " on " +
-          wishlist[i].plateform +
+          wishlist[i].platform +
           " Successfully Updated";
 
         switch (itemUpdated) {
@@ -95,8 +95,8 @@ export default class App extends React.Component {
           case "genre":
             wishlist[i].genre = updatedInput;
             break;
-          case "plateform":
-            wishlist[i].plateform = updatedInput;
+          case "platform":
+            wishlist[i].platform = updatedInput;
             break;
           case "price":
             wishlist[i].price = updatedInput;
@@ -122,7 +122,7 @@ export default class App extends React.Component {
         let message =
           wishlist[i].title +
           " on " +
-          wishlist[i].plateform +
+          wishlist[i].platform +
           " Successfully Removed From Wishlist";
         wishlist.splice(i, 1);
         this.setState({ wishlist });
@@ -137,7 +137,7 @@ export default class App extends React.Component {
 
   registerGame = (
     titleInput,
-    plateformInput,
+    platformInput,
     priceInput,
     genreInput,
     profileImageURL,
@@ -145,7 +145,7 @@ export default class App extends React.Component {
   ) => {
     const game = createWishlistGame(
       titleInput,
-      plateformInput,
+      platformInput,
       priceInput,
       genreInput,
       profileImageURL,
@@ -162,21 +162,21 @@ export default class App extends React.Component {
     });
   };
 
-  comparePlateform = (a, b) => {
+  comparePlatform = (a, b) => {
     if (this.state.orderReversed === false) {
-      if (a.plateform < b.plateform) return -1;
-      if (a.plateform > b.plateform) return 1;
+      if (a.platform < b.platform) return -1;
+      if (a.platform > b.platform) return 1;
       return 0;
     } else {
-      if (a.plateform > b.plateform) return -1;
-      if (a.plateform < b.plateform) return 1;
+      if (a.platform > b.platform) return -1;
+      if (a.platform < b.platform) return 1;
       return 0;
     }
   };
 
-  sortByPlateform = () => {
+  sortByPlatform = () => {
     const wishlist = [...this.state.wishlist];
-    wishlist.sort(this.comparePlateform);
+    wishlist.sort(this.comparePlatform);
     this.setState({ wishlist });
   };
 
@@ -238,7 +238,7 @@ export default class App extends React.Component {
     this.setState({ orderReversed: value });
   };
 
-  filterPlateforms = text => {
+  filterPlatforms = text => {
     this.setState({ filter: text });
     const games = [...this.state.wishlist];
     let filterGames = [];
@@ -248,7 +248,7 @@ export default class App extends React.Component {
           this.setState({ wishlist: JSON.parse(games) });
         });
         return;
-      } else if (this.state.filter === games[i].plateform) {
+      } else if (this.state.filter === games[i].platform) {
         filterGames.push(games[i]);
       }
     }
@@ -258,13 +258,13 @@ export default class App extends React.Component {
   render() {
     //declare an empty array for the dropdown data
     const data = [{ value: "All" }];
-    let plateforms = [];
+    let platforms = [];
     for (let i = 0; i < this.state.wishlist.length; i++) {
-      plateforms.push(this.state.wishlist[i].plateform);
+      platforms.push(this.state.wishlist[i].platform);
     }
-    plateforms = Array.from(new Set(plateforms));
-    for (let i = 0; i < plateforms.length; i++) {
-      data.push({ value: plateforms[i] });
+    platforms = Array.from(new Set(platforms));
+    for (let i = 0; i < platforms.length; i++) {
+      data.push({ value: platforms[i] });
     }
     const display = (
       <GameDisplay
@@ -292,16 +292,16 @@ export default class App extends React.Component {
           <Button color="blue" title="Title" onPress={this.sortByTitle} />
           <Button
             color="green"
-            title="Plateform"
-            onPress={this.sortByPlateform}
+            title="Platform"
+            onPress={this.sortByPlatform}
           />
           <Button color="purple" title="Genre" onPress={this.sortByGenre} />
           <Button color="maroon" title="Price" onPress={this.sortByPrice} />
         </View>
         <View style={styles.dropdown}>
           <Dropdown
-            onChangeText={text => this.filterPlateforms(text)}
-            label="Filter Plateforms"
+            onChangeText={text => this.filterPlatforms(text)}
+            label="Filter Platforms"
             data={data}
           />
         </View>
