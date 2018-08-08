@@ -282,7 +282,6 @@ export default class App extends React.Component {
 
   render() {
     //declare an empty array for the dropdown data
-    let sorting;
     const data = [{ value: "All" }];
     let platforms = [];
     for (let i = 0; i < this.state.games.length; i++) {

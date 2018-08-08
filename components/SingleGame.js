@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles";
+import SingleGameDisplay from "./SingleGameDisplay";
 
 import { Text, View, FlatList, Image, ScrollView, Button } from "react-native";
 import { Actions } from "react-native-router-flux";
@@ -33,41 +34,28 @@ export default class SingleGame extends React.Component {
     let type = "";
     //set the edit button message to contain the title
     let edit = "Edit Details of " + title;
-    //declare display
-    let display;
     //check which component needs to be mounted
     if (this.props.componentID === "wishlist") {
       //change the type to reflect the title and the component
       type = "Remove " + title + " From Wishlist";
-      //create wishlist display
-      display = (
-        <ScrollView contentContainerStyle={styles.singlePageScroll}>
-          <Image style={styles.singleImage} source={{ uri: animatedImage }} />
-          <Text style={styles.singleTitle}>{title} </Text>
-          <Text style={styles.singlePlatform}>{platform}</Text>
-          <Text style={styles.singleGenre}>{genre} </Text>
-          <Text style={styles.singlePrice}>${price} </Text>
-        </ScrollView>
-      );
     } else if (this.props.componentID === "library") {
       //change the type to reflect the title and the component
       type = "Remove " + title + " From Library";
-      //create library display
-      display = (
-        <ScrollView contentContainerStyle={styles.singlePageScroll}>
-          <Image style={styles.singleImage} source={{ uri: animatedImage }} />
-          <Text style={styles.singleTitle}>{title} </Text>
-          <Text style={styles.singlePlatform}>{platform}</Text>
-          <Text style={styles.singleGenre}>{genre} </Text>
-          <Text style={styles.singleRate}>{completionRate}%</Text>
-
-          <Text style={styles.singleDesc}>{desc} </Text>
-        </ScrollView>
-      );
     }
     return (
       <View>
-        {display}
+        <SingleGameDisplay
+          id={this.props.componentID}
+          details={this.props.details}
+        />
+        <Button
+          width="100%"
+          color="purple"
+          title={edit}
+          onPress={() =>
+            this.moveToUpdateGame(this.props.details, this.props.updateGame)
+          }
+        />
         <Button
           width="100%"
           color="purple"

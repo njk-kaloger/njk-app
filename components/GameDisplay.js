@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles";
+import FullGameDisplay from "./FullGameDisplay";
 //named imports
 import {
   Text,
@@ -40,71 +41,26 @@ export default class GameDisplay extends React.Component {
   _keyExtractor = (item, index) => item.id;
 
   render() {
+    let listKey = this._keyExtractor;
     //set empty string as the default type
     let type = "";
-    //delcare display
-    let display;
     //check which game display is needed (wishlist or library) by the id passed in
     if (this.props.componentID === "wishlist") {
       //set the type to wishlist
       type = "Wishlist";
-      //create the display for the wishlist
-      display = (
-        <ScrollView contentContainerStyle={styles.singlePageScroll}>
-          <FlatList
-            contentContainerStyle={styles.flatview}
-            keyExtractor={this._keyExtractor}
-            data={this.props.collection}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => this.moveToTitle(item.id)}>
-                <Text style={styles.libraryTitle}> {item.title} </Text>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.libraryImage}
-                    source={{ uri: item.image }}
-                  />
-
-                  <Text style={styles.libraryPlatform}> {item.platform} </Text>
-                  <Text style={styles.libraryGenre}> {item.genre} </Text>
-                  <Text style={styles.libraryPrice}>${item.price}</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </ScrollView>
-      );
       //check if it is a library component
     } else if (this.props.componentID === "library") {
       //set type to library
       type = "Library";
-      //create library display
-      display = (
-        <ScrollView contentContainerStyle={styles.singlePageScroll}>
-          <FlatList
-            contentContainerStyle={styles.flatview}
-            keyExtractor={this._keyExtractor}
-            data={this.props.collection}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => this.moveToTitle(item.id)}>
-                <Text style={styles.libraryTitle}> {item.title} </Text>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.libraryImage}
-                    source={{ uri: item.image }}
-                  />
-
-                  <Text style={styles.libraryPlatform}> {item.platform} </Text>
-                  <Text style={styles.libraryGenre}> {item.genre} </Text>
-                  <Text style={styles.libraryCompletion}>
-                    {item.completionRate}%
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </ScrollView>
-      );
     }
+    const display = (
+      <FullGameDisplay
+        id={this.props.componentID}
+        data={this.props.collection}
+        listKey={listKey}
+        movement={this.moveToTitle}
+      />
+    );
     //create the display if there are no games
     const noGames = (
       <View style={styles.noGamesView}>
