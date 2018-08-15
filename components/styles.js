@@ -1,5 +1,7 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { height, width } = Dimensions.get("window");
 
 export default (styles = StyleSheet.create({
   navBar: {
@@ -23,7 +25,7 @@ export default (styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%"
+    width: width
   },
   noGamesView: {
     flex: 1,
@@ -36,10 +38,8 @@ export default (styles = StyleSheet.create({
   },
   gameBox: {
     borderColor: "red",
-    width: 565,
-    height: "70%",
-    paddingRight: 100,
-    paddingLeft: 100
+    width: width,
+    height: height / 2
   },
   textInput: {
     height: 40,
@@ -47,7 +47,7 @@ export default (styles = StyleSheet.create({
     paddingLeft: 10,
     borderColor: "gray",
     borderWidth: 1,
-    width: "100%"
+    width: width
   },
   descInput: {
     height: 100,
@@ -55,7 +55,7 @@ export default (styles = StyleSheet.create({
     paddingLeft: 10,
     borderColor: "gray",
     borderWidth: 1,
-    width: "100%"
+    width: width
   },
   item: {
     width: "100%",
@@ -70,11 +70,11 @@ export default (styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     paddingTop: 30,
-    width: "100%"
+    width: width
   },
   contentContainer: {
     paddingVertical: 50,
-    width: "100%"
+    width: width
   },
   libraryImage: {
     width: 75,
@@ -92,7 +92,7 @@ export default (styles = StyleSheet.create({
     color: "green"
   },
   libraryButtons: {
-    width: "100%",
+    width: width / 2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
@@ -101,16 +101,14 @@ export default (styles = StyleSheet.create({
   SectionHeaderStyle: {
     backgroundColor: "#93d4ff",
     fontSize: 20,
-    padding: 5,
     color: "#fff"
   },
   addImage: {
-    width: "100%",
-    height: 190,
-    marginBottom: 50
+    width: width,
+    height: height / 3.5
   },
   singleImage: {
-    width: "100%",
+    width: width,
     height: 200
   },
   singleTitle: {
@@ -170,6 +168,6 @@ export default (styles = StyleSheet.create({
     textAlign: "center"
   },
   dropdown: {
-    width: "100%"
+    width: width
   }
 }));
