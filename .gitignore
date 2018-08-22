@@ -3,7 +3,7 @@
 .DS_Store
 package-lock.json
 .watchmanconfig
-.expo/packager-info.json
+packager-info.json
 
 # Xcode
 #
