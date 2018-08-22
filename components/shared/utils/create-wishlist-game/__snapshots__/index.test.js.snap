@@ -7,7 +7,10 @@ Object {
   "id": "PC-The Witcher 3: Wild Hunt",
   "image": "https://images-na.ssl-images-amazon.com/images/I/71NrauAMwbL._SY445_.jpg",
   "platform": "PC",
-  "price": Array [],
+  "price": Array [
+    "7",
+    "0",
+  ],
   "title": "The Witcher 3: Wild Hunt",
 }
 `;
