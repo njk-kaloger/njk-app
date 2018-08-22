@@ -13,9 +13,9 @@ import { Actions } from "react-native-router-flux";
 import { Dropdown } from "react-native-material-dropdown";
 
 import createLibraryGame from "../shared/utils/create-library-game";
-import generateEditMessage from "../shared/utils/generate-edit-message";
-import generateDeleteMessage from "../shared/utils/generate-delete-message";
 import GameDisplay from "../game-display";
+import generateDeleteMessage from "../shared/utils/generate-delete-message";
+import generateEditMessage from "../shared/utils/generate-edit-message";
 import styles from "../styles";
 
 export default class App extends React.Component {
