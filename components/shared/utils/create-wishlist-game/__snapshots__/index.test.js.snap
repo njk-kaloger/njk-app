@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create a wishlist game 1`] = `
+Object {
+  "animatedImage": "https://thumbs.gfycat.com/ExcitableLimitedBufeo-size_restricted.gif",
+  "genre": "RPG",
+  "id": "PC-The Witcher 3: Wild Hunt",
+  "image": "https://images-na.ssl-images-amazon.com/images/I/71NrauAMwbL._SY445_.jpg",
+  "platform": "PC",
+  "price": Array [],
+  "title": "The Witcher 3: Wild Hunt",
+}
+`;

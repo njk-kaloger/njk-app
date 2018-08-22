@@ -12,7 +12,7 @@ import imageSearch from "react-native-google-image-search";
 import { Actions } from "react-native-router-flux";
 import { Dropdown } from "react-native-material-dropdown";
 
-import { createLibraryGame } from "../shared/utils/functions";
+import createLibraryGame from "../shared/utils/create-library-game";
 import GameDisplay from "../game-display";
 import styles from "../styles";
 
@@ -84,31 +84,7 @@ export default class App extends React.Component {
         let message =
           games[i].title + " on " + games[i].platform + " Successfully Updated";
 
-        switch (itemUpdated) {
-          case "image":
-            games[i].image = updatedInput;
-            break;
-          case "animatedImage":
-            games[i].animatedImage = updatedInput;
-            break;
-          case "title":
-            games[i].title = updatedInput;
-            break;
-          case "genre":
-            games[i].genre = updatedInput;
-            break;
-          case "platform":
-            games[i].platform = updatedInput;
-            break;
-          case "desc":
-            games[i].desc = updatedInput;
-            break;
-          case "completionRate":
-            games[i].completionRate = updatedInput;
-            break;
-          default:
-            break;
-        }
+        games[i][itemUpdated] = updatedInput;
 
         this.setState({ games });
         AsyncStorage.setItem("games", JSON.stringify(games));

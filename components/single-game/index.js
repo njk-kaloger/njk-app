@@ -13,7 +13,7 @@ import { Actions } from "react-native-router-flux";
 
 import styles from "../styles";
 import SingleGameDisplay from "../single-game-display";
-import { createLibraryGame } from "../shared/utils/functions";
+import createLibraryGame from "../shared/utils/create-library-game";
 
 export default class SingleGame extends React.Component {
   //constructor accepts props

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create a library game 1`] = `
+Object {
+  "animatedImage": "The Witcher® 3: Wild Hunt is a story-driven, next-generation open world role-playing game, set in a visually stunning fantasy universe, full of meaningful choices and impactful consequences. You play as Geralt of Rivia, a monster hunter tasked with finding a child from an ancient prophecy.",
+  "completionRate": 0,
+  "desc": "RPG",
+  "genre": "https://images-na.ssl-images-amazon.com/images/I/71NrauAMwbL._SY445_.jpg",
+  "id": "PC-The Witcher 3: Wild Hunt",
+  "image": "https://thumbs.gfycat.com/ExcitableLimitedBufeo-size_restricted.gif",
+  "platform": "PC",
+  "title": "The Witcher 3: Wild Hunt",
+}
+`;

@@ -12,7 +12,7 @@ import imageSearch from "react-native-google-image-search";
 import { Actions } from "react-native-router-flux";
 import { Dropdown } from "react-native-material-dropdown";
 
-import { createWishlistGame } from "../shared/utils/functions";
+import createWishlistGame from "../shared/utils/create-wishlist-game";
 import GameDisplay from "../game-display";
 import styles from "../styles";
 
@@ -86,28 +86,7 @@ export default class App extends React.Component {
           wishlist[i].platform +
           " Successfully Updated";
 
-        switch (itemUpdated) {
-          case "image":
-            wishlist[i].image = updatedInput;
-            break;
-          case "animatedImage":
-            wishlist[i].animatedImage = updatedInput;
-            break;
-          case "title":
-            wishlist[i].title = updatedInput;
-            break;
-          case "genre":
-            wishlist[i].genre = updatedInput;
-            break;
-          case "platform":
-            wishlist[i].platform = updatedInput;
-            break;
-          case "price":
-            wishlist[i].price = updatedInput;
-            break;
-          default:
-            break;
-        }
+        wishlist[i][itemUpdated] = updatedInput;
 
         this.setState({ wishlist });
         AsyncStorage.setItem("wishlist", JSON.stringify(wishlist));
