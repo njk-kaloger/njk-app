@@ -1,8 +1,8 @@
-## Inlight Email Signature
+## Universal Games Library
 
 ### Goal
 
-Generate email Signature
+Create a games library that will allow a user to catalogue their games across different platforms.
 
 ### Getting Started
 
