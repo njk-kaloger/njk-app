@@ -13,6 +13,7 @@ import { Actions } from "react-native-router-flux";
 import { Dropdown } from "react-native-material-dropdown";
 
 import createWishlistGame from "../shared/utils/create-wishlist-game";
+import generateEditMessage from "../shared/utils/generate-edit-message";
 import GameDisplay from "../game-display";
 import styles from "../styles";
 
@@ -80,11 +81,10 @@ export default class App extends React.Component {
     const wishlist = [...this.state.wishlist];
     for (let i = 0; i < wishlist.length; i++) {
       if (id === wishlist[i].id) {
-        let message =
-          wishlist[i].title +
-          " on " +
-          wishlist[i].platform +
-          " Successfully Updated";
+        const message = generateEditMessage(
+          wishlist[i].title,
+          wishlist[i].platform
+        );
 
         wishlist[i][itemUpdated] = updatedInput;
 
