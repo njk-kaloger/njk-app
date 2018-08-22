@@ -14,6 +14,9 @@ import { Dropdown } from "react-native-material-dropdown";
 
 import createWishlistGame from "../shared/utils/create-wishlist-game";
 import GameDisplay from "../game-display";
+import generateDeleteMessage from "../shared/utils/generate-delete-message";
+import generateEditMessage from "../shared/utils/generate-edit-message";
+import generateExistenceMessage from "./utils/generate-existence-message";
 import styles from "../styles";
 
 export default class App extends React.Component {
@@ -46,20 +49,14 @@ export default class App extends React.Component {
   addGame = game => {
     for (let i = 0; i < this.state.wishlist.length; i++) {
       if (game.id === this.state.wishlist[i].id) {
-        Alert.alert(
-          "You Have " +
-            game.title +
-            " on " +
-            game.platform +
-            " in your wishlist"
-        );
+        Alert.alert(generateExistenceMessage(game.title, game.platform));
         return;
       }
     }
 
     for (let i = 0; i < this.state.collection.length; i++) {
       if (game.id === this.state.collection[i].id) {
-        Alert.alert("You Already Own " + game.title + " on " + game.platform);
+        Alert.alert(generateExistenceMessage(game.title, game.platform));
         return;
       }
     }
@@ -80,11 +77,10 @@ export default class App extends React.Component {
     const wishlist = [...this.state.wishlist];
     for (let i = 0; i < wishlist.length; i++) {
       if (id === wishlist[i].id) {
-        let message =
-          wishlist[i].title +
-          " on " +
-          wishlist[i].platform +
-          " Successfully Updated";
+        const message = generateEditMessage(
+          wishlist[i].title,
+          wishlist[i].platform
+        );
 
         wishlist[i][itemUpdated] = updatedInput;
 
@@ -102,11 +98,12 @@ export default class App extends React.Component {
     const wishlist = [...this.state.wishlist];
     for (let i = 0; i < wishlist.length; i++) {
       if (gameID === wishlist[i].id) {
-        let message =
-          wishlist[i].title +
-          " on " +
-          wishlist[i].platform +
-          " Successfully Removed From Wishlist";
+        const message = generateDeleteMessage(
+          wishlist[i].title,
+          wishlist[i].platform,
+          "Wishlist"
+        );
+
         wishlist.splice(i, 1);
         this.setState({ wishlist });
         AsyncStorage.setItem("wishlist", JSON.stringify(wishlist));
