@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  Text,
-  View,
   FlatList,
   Image,
-  TouchableOpacity,
+  ScrollView,
   SectionList,
-  ScrollView
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 

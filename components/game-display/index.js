@@ -1,17 +1,17 @@
 import React from "react";
 import {
-  Text,
-  View,
   FlatList,
   Image,
-  TouchableOpacity,
+  ScrollView,
   SectionList,
-  ScrollView
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 
-import styles from "../styles";
 import FullGameDisplay from "../full-game-display";
+import styles from "../styles";
 
 export default class GameDisplay extends React.Component {
   //constructor that checks at the beginning if the component should contain games

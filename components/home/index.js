@@ -1,10 +1,10 @@
 import React from "react";
 import {
+  ImageBackground,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
-  ImageBackground
+  View
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 

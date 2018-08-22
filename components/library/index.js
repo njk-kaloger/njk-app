@@ -32,15 +32,19 @@ export default class App extends React.Component {
 
   componentDidMount() {
     AsyncStorage.getItem("games").then(games => {
-      if (games.length === 2) {
-        this.setState({ isEmpty: true });
-      }
-      if (!(games === null) && games.length > 2) {
-        this.setState({ games: JSON.parse(games), isEmpty: false });
+      if (games !== null) {
+        if (games.length === 2) {
+          this.setState({ isEmpty: true });
+        }
+        if (games.length > 2) {
+          this.setState({ games: JSON.parse(games), isEmpty: false });
+        }
       }
     });
     AsyncStorage.getItem("wishlist").then(wishGames => {
-      this.setState({ wish: JSON.parse(wishGames) });
+      if (wishGames !== null) {
+        this.setState({ wish: JSON.parse(wishGames) });
+      }
     });
   }
 
