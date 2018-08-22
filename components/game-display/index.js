@@ -1,7 +1,4 @@
 import React from "react";
-import styles from "./styles";
-import FullGameDisplay from "./FullGameDisplay";
-//named imports
 import {
   Text,
   View,
@@ -12,6 +9,9 @@ import {
   ScrollView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
+
+import styles from "../styles";
+import FullGameDisplay from "../full-game-display";
 
 export default class GameDisplay extends React.Component {
   //constructor that checks at the beginning if the component should contain games

@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, View, TextInput, Button, Image, Picker } from "react-native";
-import styles from "./styles";
 import { Dropdown } from "react-native-material-dropdown";
+
+import styles from "../styles";
 
 export default class EditGame extends React.Component {
   render() {

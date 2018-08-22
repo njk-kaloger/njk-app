@@ -1,7 +1,4 @@
 import React from "react";
-import styles from "./styles";
-import SingleGameDisplay from "./SingleGameDisplay";
-
 import {
   Text,
   View,
@@ -13,7 +10,10 @@ import {
   Alert
 } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { createLibraryGame } from "./functions";
+
+import styles from "../styles";
+import SingleGameDisplay from "../single-game-display";
+import { createLibraryGame } from "../shared/utils/functions";
 
 export default class SingleGame extends React.Component {
   //constructor accepts props

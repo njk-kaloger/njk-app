@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, TextInput, Button, Image, ScrollView } from "react-native";
-import styles from "./styles";
+
+import styles from "../styles";
 
 export default class AddGameFields extends React.Component {
   addGame = () => {

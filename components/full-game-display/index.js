@@ -1,6 +1,4 @@
 import React from "react";
-import styles from "./styles";
-
 import {
   Text,
   View,
@@ -11,6 +9,8 @@ import {
   ScrollView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
+
+import styles from "../styles";
 
 export default class FullGameDisplay extends React.Component {
   //constructor accepts props

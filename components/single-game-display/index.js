@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./styles";
-
 import { Text, View, FlatList, Image, ScrollView, Button } from "react-native";
 import { Actions } from "react-native-router-flux";
+
+import styles from "../styles";
 
 export default class SingleGameDisplay extends React.Component {
   //constructor accepts props

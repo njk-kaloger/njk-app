@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   ImageBackground
 } from "react-native";
-import styles from "./styles";
 import { Actions } from "react-native-router-flux";
+
+import styles from "../styles";
 
 moveToLibrary = () => {
   Actions.library();

@@ -1,12 +1,13 @@
 import React from "react";
 import { Router, Scene, Stack } from "react-native-router-flux";
-import Library from "../Library";
-import Wishlist from "../Wishlist";
-import Add from "../AddGame";
-import Edit from "../EditGame";
-import Single from "../SingleGame";
-import Home from "../Home";
+
+import Add from "../add-game";
+import Edit from "../edit-game";
+import Home from "../home";
+import Library from "../library";
+import Single from "../single-game";
 import styles from "../styles";
+import Wishlist from "../wishlist";
 
 const Routes = () => (
   <Router navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
