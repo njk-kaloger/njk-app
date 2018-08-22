@@ -13,9 +13,10 @@ import { Actions } from "react-native-router-flux";
 import { Dropdown } from "react-native-material-dropdown";
 
 import createWishlistGame from "../shared/utils/create-wishlist-game";
-import generateEditMessage from "../shared/utils/generate-edit-message";
-import generateDeleteMessage from "../shared/utils/generate-delete-message";
 import GameDisplay from "../game-display";
+import generateDeleteMessage from "../shared/utils/generate-delete-message";
+import generateEditMessage from "../shared/utils/generate-edit-message";
+import generateExistenceMessage from "./utils/generate-existence-message";
 import styles from "../styles";
 
 export default class App extends React.Component {
@@ -48,20 +49,14 @@ export default class App extends React.Component {
   addGame = game => {
     for (let i = 0; i < this.state.wishlist.length; i++) {
       if (game.id === this.state.wishlist[i].id) {
-        Alert.alert(
-          "You Have " +
-            game.title +
-            " on " +
-            game.platform +
-            " in your wishlist"
-        );
+        Alert.alert(generateExistenceMessage(game.title, game.platform));
         return;
       }
     }
 
     for (let i = 0; i < this.state.collection.length; i++) {
       if (game.id === this.state.collection[i].id) {
-        Alert.alert("You Already Own " + game.title + " on " + game.platform);
+        Alert.alert(generateExistenceMessage(game.title, game.platform));
         return;
       }
     }
