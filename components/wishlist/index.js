@@ -14,6 +14,7 @@ import { Dropdown } from "react-native-material-dropdown";
 
 import createWishlistGame from "../shared/utils/create-wishlist-game";
 import generateEditMessage from "../shared/utils/generate-edit-message";
+import generateDeleteMessage from "../shared/utils/generate-delete-message";
 import GameDisplay from "../game-display";
 import styles from "../styles";
 
@@ -102,11 +103,12 @@ export default class App extends React.Component {
     const wishlist = [...this.state.wishlist];
     for (let i = 0; i < wishlist.length; i++) {
       if (gameID === wishlist[i].id) {
-        let message =
-          wishlist[i].title +
-          " on " +
-          wishlist[i].platform +
-          " Successfully Removed From Wishlist";
+        const message = generateDeleteMessage(
+          wishlist[i].title,
+          wishlist[i].platform,
+          "Wishlist"
+        );
+
         wishlist.splice(i, 1);
         this.setState({ wishlist });
         AsyncStorage.setItem("wishlist", JSON.stringify(wishlist));

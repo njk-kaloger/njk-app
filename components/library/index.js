@@ -14,6 +14,7 @@ import { Dropdown } from "react-native-material-dropdown";
 
 import createLibraryGame from "../shared/utils/create-library-game";
 import generateEditMessage from "../shared/utils/generate-edit-message";
+import generateDeleteMessage from "../shared/utils/generate-delete-message";
 import GameDisplay from "../game-display";
 import styles from "../styles";
 
@@ -99,11 +100,11 @@ export default class App extends React.Component {
     const games = [...this.state.games];
     for (let i = 0; i < games.length; i++) {
       if (gameID === games[i].id) {
-        let message =
-          games[i].title +
-          " on " +
-          games[i].platform +
-          " Successfully Removed From Library";
+        const message = generateDeleteMessage(
+          games[i].title,
+          games[i].platform,
+          "Library"
+        );
         games.splice(i, 1);
         this.setState({ games });
         AsyncStorage.setItem("games", JSON.stringify(games));
