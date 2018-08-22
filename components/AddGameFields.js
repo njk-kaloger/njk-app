@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TextInput, Button, Image } from "react-native";
+import { Text, View, TextInput, Button, Image, ScrollView } from "react-native";
 import styles from "./styles";
 
 export default class AddGameFields extends React.Component {
@@ -60,49 +60,51 @@ export default class AddGameFields extends React.Component {
               "http://www.thebluediamondgallery.com/wooden-tile/images/game.jpg"
           }}
         />
-        <TextInput
-          keyboardAppearance="dark"
-          onChangeText={text => this.setState({ titleInput: text })}
-          style={styles.textInput}
-          placeholder="Game Title"
-          returnKeyType="done"
-          returnKeyLabel="done"
-        />
-        <TextInput
-          keyboardAppearance="dark"
-          onChangeText={text => this.setState({ platformInput: text })}
-          style={styles.textInput}
-          placeholder="Game Platform"
-          returnKeyType="done"
-          returnKeyLabel="done"
-        />
-        <TextInput
-          keyboardAppearance="dark"
-          onChangeText={text => this.setState({ genreInput: text })}
-          style={styles.textInput}
-          placeholder="Game Genre"
-          returnKeyType="done"
-          returnKeyLabel="done"
-        />
-        <TextInput
-          keyboardAppearance="dark"
-          onChangeText={text => this.setState({ libraryImageURL: text })}
-          style={styles.textInput}
-          placeholder="Library Image URL"
-          returnKeyType="done"
-          returnKeyLabel="done"
-        />
-        <TextInput
-          keyboardAppearance="dark"
-          onChangeText={text => this.setState({ profileImageURL: text })}
-          style={styles.textInput}
-          placeholder="Profile Image URL"
-          returnKeyType="done"
-          returnKeyLabel="done"
-        />
-        {this.props.id === "library" ? library : wishlist}
+        <ScrollView>
+          <TextInput
+            keyboardAppearance="dark"
+            onChangeText={text => this.setState({ titleInput: text })}
+            style={styles.textInput}
+            placeholder="Game Title"
+            returnKeyType="done"
+            returnKeyLabel="done"
+          />
+          <TextInput
+            keyboardAppearance="dark"
+            onChangeText={text => this.setState({ platformInput: text })}
+            style={styles.textInput}
+            placeholder="Game Platform"
+            returnKeyType="done"
+            returnKeyLabel="done"
+          />
+          <TextInput
+            keyboardAppearance="dark"
+            onChangeText={text => this.setState({ genreInput: text })}
+            style={styles.textInput}
+            placeholder="Game Genre"
+            returnKeyType="done"
+            returnKeyLabel="done"
+          />
+          <TextInput
+            keyboardAppearance="dark"
+            onChangeText={text => this.setState({ libraryImageURL: text })}
+            style={styles.textInput}
+            placeholder="Library Image URL"
+            returnKeyType="done"
+            returnKeyLabel="done"
+          />
+          <TextInput
+            keyboardAppearance="dark"
+            onChangeText={text => this.setState({ profileImageURL: text })}
+            style={styles.textInput}
+            placeholder="Profile Image URL"
+            returnKeyType="done"
+            returnKeyLabel="done"
+          />
+          {this.props.id === "library" ? library : wishlist}
 
-        <Button title="Register" onPress={this.addGame} />
+          <Button title="Register" onPress={this.addGame} />
+        </ScrollView>
       </View>
     );
   }
