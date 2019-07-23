@@ -1,37 +1,34 @@
 import React from 'react';
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
+import { requireNativeComponent } from 'react-native';
+import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
+import { extractFont } from '../lib/extract/extractText';
+import extractTransform from '../lib/extract/extractTransform';
 import Shape from './Shape';
-import {pathProps, fontProps} from '../lib/props';
-import {GroupAttributes} from '../lib/attributes';
-import extractProps from '../lib/extract/extractProps';
-import {extractFont} from '../lib/extract/extractText';
 
-export default class extends Shape{
-    static displayName = 'G';
+export default class G extends Shape {
+  static displayName = 'G';
 
-    static propTypes = {
-        ...pathProps,
-        ...fontProps,
-    };
-
-    setNativeProps = (...args) => {
-        this.root.setNativeProps(...args);
-    };
-
-    render() {
-        let {props} = this;
-
-        return <RNSVGGroup
-            {...extractProps(props, this)}
-            font={extractFont(props)}
-            ref={ele => {this.root = ele;}}
-        >
-            {props.children}
-        </RNSVGGroup>;
+  setNativeProps = props => {
+    const matrix = !props.matrix && extractTransform(props);
+    if (matrix) {
+      props.matrix = matrix;
     }
+    this.root.setNativeProps(props);
+  };
+
+  render() {
+    const { props } = this;
+    const prop = propsAndStyles(props);
+    return (
+      <RNSVGGroup
+        ref={this.refMethod}
+        {...extractProps(prop, this)}
+        font={extractFont(prop)}
+      >
+        {props.children}
+      </RNSVGGroup>
+    );
+  }
 }
 
-const RNSVGGroup = createReactNativeComponentClass('RNSVGGroup', () => ({
-    validAttributes: GroupAttributes,
-    uiViewClassName: 'RNSVGGroup'
-}));
+const RNSVGGroup = requireNativeComponent('RNSVGGroup');

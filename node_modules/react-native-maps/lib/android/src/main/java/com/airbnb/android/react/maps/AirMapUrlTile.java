@@ -23,11 +23,24 @@ public class AirMapUrlTile extends AirMapFeature {
     @Override
     public synchronized URL getTileUrl(int x, int y, int zoom) {
 
+      if (AirMapUrlTile.this.flipY == true) {
+        y = (1 << zoom) - y - 1;
+      }
+
       String s = this.urlTemplate
           .replace("{x}", Integer.toString(x))
           .replace("{y}", Integer.toString(y))
           .replace("{z}", Integer.toString(zoom));
       URL url = null;
+
+      if(AirMapUrlTile.this.maximumZ > 0 && zoom > maximumZ) {
+        return url;
+      }
+
+      if(AirMapUrlTile.this.minimumZ > 0 && zoom < minimumZ) {
+        return url;
+      }
+
       try {
         url = new URL(s);
       } catch (MalformedURLException e) {
@@ -47,6 +60,9 @@ public class AirMapUrlTile extends AirMapFeature {
 
   private String urlTemplate;
   private float zIndex;
+  private float maximumZ;
+  private float minimumZ;
+  private boolean flipY;
 
   public AirMapUrlTile(Context context) {
     super(context);
@@ -66,6 +82,27 @@ public class AirMapUrlTile extends AirMapFeature {
     this.zIndex = zIndex;
     if (tileOverlay != null) {
       tileOverlay.setZIndex(zIndex);
+    }
+  }
+
+  public void setMaximumZ(float maximumZ) {
+    this.maximumZ = maximumZ;
+    if (tileOverlay != null) {
+      tileOverlay.clearTileCache();
+    }
+  }
+
+  public void setMinimumZ(float minimumZ) {
+    this.minimumZ = minimumZ;
+    if (tileOverlay != null) {
+      tileOverlay.clearTileCache();
+    }
+  }
+
+  public void setFlipY(boolean flipY) {
+    this.flipY = flipY;
+    if (tileOverlay != null) {
+      tileOverlay.clearTileCache();
     }
   }
 

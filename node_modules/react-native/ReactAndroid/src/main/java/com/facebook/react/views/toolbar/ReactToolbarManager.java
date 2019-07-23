@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import androidx.core.view.ViewCompat;
 import android.util.LayoutDirection;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import javax.annotation.Nullable;
 public class ReactToolbarManager extends ViewGroupManager<ReactToolbar> {
 
   private static final String REACT_CLASS = "ToolbarAndroid";
+  private static final int COMMAND_DISMISS_POPUP_MENUS = 1;
 
   @Override
   public String getName() {
@@ -61,7 +63,7 @@ public class ReactToolbarManager extends ViewGroupManager<ReactToolbar> {
 
   @ReactProp(name = "rtl")
   public void setRtl(ReactToolbar view, boolean rtl) {
-    view.setLayoutDirection(rtl ? LayoutDirection.RTL : LayoutDirection.LTR);
+    ViewCompat.setLayoutDirection(view, rtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
   }
 
   @ReactProp(name = "subtitle")
@@ -117,8 +119,7 @@ public class ReactToolbarManager extends ViewGroupManager<ReactToolbar> {
 
   @Override
   protected void addEventEmitters(final ThemedReactContext reactContext, final ReactToolbar view) {
-    final EventDispatcher mEventDispatcher = reactContext.getNativeModule(UIManagerModule.class)
-        .getEventDispatcher();
+    final EventDispatcher mEventDispatcher = reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
     view.setNavigationOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -155,6 +156,27 @@ public class ReactToolbarManager extends ViewGroupManager<ReactToolbar> {
   @Override
   public boolean needsCustomLayoutForChildren() {
     return true;
+  }
+
+  @Nullable
+  @Override
+  public Map<String, Integer> getCommandsMap() {
+    return MapBuilder.of("dismissPopupMenus", COMMAND_DISMISS_POPUP_MENUS);
+  }
+
+  @Override
+  public void receiveCommand(ReactToolbar view, int commandType, @Nullable ReadableArray args) {
+    switch (commandType) {
+      case COMMAND_DISMISS_POPUP_MENUS: {
+        view.dismissPopupMenus();
+        return;
+      }
+      default:
+        throw new IllegalArgumentException(String.format(
+          "Unsupported command %d received by %s.",
+          commandType,
+          getClass().getSimpleName()));
+    }
   }
 
   private int[] getDefaultContentInsets(Context context) {

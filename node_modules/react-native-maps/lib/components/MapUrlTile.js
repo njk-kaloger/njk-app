@@ -32,12 +32,38 @@ const propTypes = {
    */
   zIndex: PropTypes.number,
   /**
-   * The maximum zoom level for this tile overlay. Corresponds to the maximumZ setting in
-   * MKTileOverlay. iOS only.
+   * The maximum zoom level for this tile overlay.
+   *
+   */
+  maximumZ: PropTypes.number,
+
+  /**
+   * The minimum zoom level for this tile overlay.
+   *
+   */
+  minimumZ: PropTypes.number,
+
+  /**
+   * Corresponds to MKTileOverlay canReplaceMapContent.
    *
    * @platform ios
    */
-  maximumZ: PropTypes.number,
+  shouldReplaceMapContent: PropTypes.bool,
+
+  /**
+   * (Optional) Tile size for iOS only, default size is 256 * 256.
+   *
+   * @platform ios
+   */
+  tileSize: PropTypes.number,
+
+  /**
+   *
+   * Allow tiles using the TMS coordinate system (origin bottom left)
+   * to be used, and displayed at their correct coordinates
+   *
+   */
+  flipY: PropTypes.bool,
 };
 
 class MapUrlTile extends React.Component {

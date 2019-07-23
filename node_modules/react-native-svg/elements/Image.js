@@ -1,63 +1,50 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Image } from 'react-native';
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
-import {ImageAttributes} from '../lib/attributes';
-import {numberProp, touchableProps, responderProps} from '../lib/props';
+import { Image, requireNativeComponent } from 'react-native';
+import { meetOrSliceTypes, alignEnum } from '../lib/extract/extractViewBox';
+import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
 import Shape from './Shape';
-//noinspection JSUnresolvedVariable
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import {meetOrSliceTypes, alignEnum} from '../lib/extract/extractViewBox';
-import extractProps from '../lib/extract/extractProps';
 
 const spacesRegExp = /\s+/;
 
-export default class extends Shape {
-    static displayName = 'Image';
-    static propTypes = {
-        ...responderProps,
-        ...touchableProps,
-        x: numberProp,
-        y: numberProp,
-        width: numberProp.isRequired,
-        height: numberProp.isRequired,
-        href: Image.propTypes.source,
-        preserveAspectRatio: PropTypes.string
-    };
+export default class SvgImage extends Shape {
+  static displayName = 'Image';
 
-    static defaultProps = {
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        preserveAspectRatio: 'xMidYMid meet'
-    };
+  static defaultProps = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    preserveAspectRatio: 'xMidYMid meet',
+  };
 
-    setNativeProps = (...args) => {
-        this.root.setNativeProps(...args);
-    };
-
-    render() {
-        let {props} = this;
-        let modes = props.preserveAspectRatio.trim().split(spacesRegExp);
-        let meetOrSlice = meetOrSliceTypes[modes[1]] || 0;
-        let align = alignEnum[modes[0]] || 'xMidYMid';
-
-        return <RNSVGImage
-            ref={ele => {this.root = ele;}}
-            {...extractProps({...props, x: null, y: null}, this)}
-            x={props.x.toString()}
-            y={props.y.toString()}
-            width={props.width.toString()}
-            height={props.height.toString()}
-            meetOrSlice={meetOrSlice}
-            align={align}
-            src={resolveAssetSource(props.href)}
-        />;
-    }
+  render() {
+    const { props } = this;
+    const {
+      preserveAspectRatio,
+      x,
+      y,
+      width,
+      height,
+      xlinkHref,
+      href = xlinkHref,
+    } = props;
+    const modes = preserveAspectRatio.trim().split(spacesRegExp);
+    return (
+      <RNSVGImage
+        ref={this.refMethod}
+        {...extractProps({ ...propsAndStyles(props), x: null, y: null }, this)}
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        meetOrSlice={meetOrSliceTypes[modes[1]] || 0}
+        align={alignEnum[modes[0]] || 'xMidYMid'}
+        src={Image.resolveAssetSource(
+          typeof href === 'string' ? { uri: href } : href,
+        )}
+      />
+    );
+  }
 }
 
-const RNSVGImage = createReactNativeComponentClass('RNSVGImage', () => ({
-    validAttributes: ImageAttributes,
-    uiViewClassName: 'RNSVGImage'
-}));
+const RNSVGImage = requireNativeComponent('RNSVGImage');

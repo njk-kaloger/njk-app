@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
+import { requireNativeComponent } from 'react-native';
 
-export default class extends Component {
-    static displayName = 'Defs';
+export default class Defs extends Component {
+  static displayName = 'Defs';
 
-    render() {
-        return <RNSVGDefs>{this.props.children}</RNSVGDefs>;
-    }
+  render() {
+    return <RNSVGDefs>{this.props.children}</RNSVGDefs>;
+  }
 }
 
-const RNSVGDefs = createReactNativeComponentClass('RNSVGDefs', () => ({
-    validAttributes: {},
-    uiViewClassName: 'RNSVGDefs'
-}));
+const RNSVGDefs = requireNativeComponent('RNSVGDefs');

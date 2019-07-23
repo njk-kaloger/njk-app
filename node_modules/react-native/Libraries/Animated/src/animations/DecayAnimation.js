@@ -1,10 +1,9 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @providesModule DecayAnimation
  * @flow
  * @format
  */
@@ -39,13 +38,11 @@ class DecayAnimation extends Animation {
 
   constructor(config: DecayAnimationConfigSingle) {
     super();
-    this._deceleration =
-      config.deceleration !== undefined ? config.deceleration : 0.998;
+    this._deceleration = config.deceleration ?? 0.998;
     this._velocity = config.velocity;
     this._useNativeDriver = shouldUseNativeDriver(config);
-    this.__isInteraction =
-      config.isInteraction !== undefined ? config.isInteraction : true;
-    this.__iterations = config.iterations !== undefined ? config.iterations : 1;
+    this.__isInteraction = config.isInteraction ?? !this._useNativeDriver;
+    this.__iterations = config.iterations ?? 1;
   }
 
   __getNativeAnimationConfig() {
@@ -82,8 +79,7 @@ class DecayAnimation extends Animation {
 
     const value =
       this._fromValue +
-      this._velocity /
-        (1 - this._deceleration) *
+      (this._velocity / (1 - this._deceleration)) *
         (1 - Math.exp(-(1 - this._deceleration) * (now - this._startTime)));
 
     this._onUpdate(value);

@@ -1,20 +1,24 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
-import {ClipPathAttributes} from '../lib/attributes';
+import React from 'react';
+import { requireNativeComponent } from 'react-native';
+import extractClipPath from '../lib/extract/extractClipPath';
+import Shape from './Shape';
 
-export default class extends Component{
-    static displayName = 'ClipPath';
-    static propTypes = {
-        id: PropTypes.string.isRequired
-    };
+export default class ClipPath extends Shape {
+  static displayName = 'ClipPath';
 
-    render() {
-        return <RNSVGClipPath name={this.props.id}>{this.props.children}</RNSVGClipPath>;
-    }
+  render() {
+    const { props } = this;
+    const { id, children } = props;
+    return (
+      <RNSVGClipPath
+        ref={this.refMethod}
+        name={id}
+        {...extractClipPath(props)}
+      >
+        {children}
+      </RNSVGClipPath>
+    );
+  }
 }
 
-const RNSVGClipPath = createReactNativeComponentClass('RNSVGClipPath', () => ({
-    validAttributes: ClipPathAttributes,
-    uiViewClassName: 'RNSVGClipPath'
-}));
+const RNSVGClipPath = requireNativeComponent('RNSVGClipPath');

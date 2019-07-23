@@ -1,20 +1,20 @@
-import {Component} from 'react';
-import PropTypes from 'prop-types';
-import {numberProp} from '../lib/props';
+import { Component } from 'react';
 
-export default class extends Component{
-    static displayName = 'Stop';
-    static propTypes = {
-        stopColor: PropTypes.string,
-        stopOpacity: numberProp
-    };
+export default class Stop extends Component {
+  static displayName = 'Stop';
 
-    static defaultProps = {
-        stopColor: '#000',
-        stopOpacity: 1
-    };
-
-    render() {
-        return null;
+  static defaultProps = {
+    stopColor: '#000',
+    stopOpacity: 1,
+  };
+  setNativeProps = () => {
+    const { parent } = this.props;
+    if (parent) {
+      parent.forceUpdate();
     }
+  };
+
+  render() {
+    return null;
+  }
 }

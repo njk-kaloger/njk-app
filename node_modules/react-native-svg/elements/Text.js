@@ -1,56 +1,39 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
+import { requireNativeComponent } from 'react-native';
 import extractText from '../lib/extract/extractText';
-import {textProps} from '../lib/props';
-import {TextAttributes} from '../lib/attributes';
-import extractProps from '../lib/extract/extractProps';
+import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
+import extractTransform from '../lib/extract/extractTransform';
+import { pickNotNil } from '../lib/util';
 import Shape from './Shape';
+import './TSpan';
 
-export default class extends Shape {
-    static displayName = 'Text';
+export default class Text extends Shape {
+  static displayName = 'Text';
 
-    static propTypes = textProps;
-
-    //noinspection JSUnusedGlobalSymbols
-    static childContextTypes = {
-        isInAParentText: PropTypes.bool
-    };
-
-    //noinspection JSUnusedGlobalSymbols
-    getChildContext() {
-        return {
-            isInAParentText: true
-        };
+  setNativeProps = props => {
+    const matrix = !props.matrix && extractTransform(props);
+    if (matrix) {
+      props.matrix = matrix;
     }
+    const prop = propsAndStyles(props);
+    Object.assign(prop, pickNotNil(extractText(prop, true)));
+    this.root.setNativeProps(prop);
+  };
 
-    //noinspection JSUnusedGlobalSymbols
-    getContextTypes() {
-        return {
-            isInAParentText: PropTypes.bool
-        };
-    }
-
-    setNativeProps = (...args) => {
-        this.root.setNativeProps(...args);
-    };
-
-    render() {
-        const props = this.props;
-
-        return <RNSVGText
-            ref={ele => {this.root = ele;}}
-            {...extractProps({
-                ...props,
-                x: null,
-                y: null
-            }, this)}
-            {...extractText(props, true)}
-        />;
-    }
+  render() {
+    const prop = propsAndStyles(this.props);
+    const props = extractProps(
+      {
+        ...prop,
+        x: null,
+        y: null,
+      },
+      this,
+    );
+    Object.assign(props, extractText(prop, true));
+    props.ref = this.refMethod;
+    return <RNSVGText {...props} />;
+  }
 }
 
-const RNSVGText = createReactNativeComponentClass('RNSVGText', () => ({
-    validAttributes: TextAttributes,
-    uiViewClassName: 'RNSVGText'
-}));
+const RNSVGText = requireNativeComponent('RNSVGText');

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -58,7 +58,7 @@ import org.robolectric.RuntimeEnvironment;
  */
 @PrepareForTest({Arguments.class, ReactChoreographer.class})
 @RunWith(RobolectricTestRunner.class)
-@PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*"})
+@PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "androidx.*", "android.*"})
 public class UIManagerModuleTest {
 
   @Rule
@@ -814,7 +814,7 @@ public class UIManagerModuleTest {
         new ReactTextViewManager(),
         new ReactRawTextManager());
     UIManagerModule uiManagerModule =
-        new UIManagerModule(mReactContext, viewManagers, new UIImplementationProvider(), 0);
+        new UIManagerModule(mReactContext, viewManagers, 0);
     uiManagerModule.onHostResume();
     return uiManagerModule;
   }

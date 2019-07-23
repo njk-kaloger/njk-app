@@ -1,45 +1,32 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {numberProp} from '../lib/props';
+import React from 'react';
+import { requireNativeComponent } from 'react-native';
 import extractGradient from '../lib/extract/extractGradient';
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
-import {LinearGradientAttributes} from '../lib/attributes';
+import Shape from './Shape';
 
-export default class extends Component{
-    static displayName = 'LinearGradient';
-    static propTypes = {
-        x1: numberProp.isRequired,
-        x2: numberProp.isRequired,
-        y1: numberProp.isRequired,
-        y2: numberProp.isRequired,
-        gradientUnits: PropTypes.oneOf(['objectBoundingBox', 'userSpaceOnUse']),
-        id: PropTypes.string.isRequired
-    };
+export default class LinearGradient extends Shape {
+  static displayName = 'LinearGradient';
 
-    static defaultProps = {
-        x1: '0%',
-        y1: '0%',
-        x2: '100%',
-        y2: '0%'
-    };
+  static defaultProps = {
+    x1: '0%',
+    y1: '0%',
+    x2: '100%',
+    y2: '0%',
+  };
 
-    render() {
-        let {props} = this;
-        return <RNSVGLinearGradient
-            x1={props.x1.toString()}
-            y1={props.y1.toString()}
-            x2={props.x2.toString()}
-            y2={props.y2.toString()}
-            {...extractGradient(this.props)}
-        />;
-
-    }
+  render() {
+    const { props } = this;
+    const { x1, y1, x2, y2 } = props;
+    return (
+      <RNSVGLinearGradient
+        ref={this.refMethod}
+        x1={x1}
+        y1={y1}
+        x2={x2}
+        y2={y2}
+        {...extractGradient(props, this)}
+      />
+    );
+  }
 }
 
-const RNSVGLinearGradient = createReactNativeComponentClass(
-    'RNSVGLinearGradient',
-    () => ({
-        validAttributes: LinearGradientAttributes,
-        uiViewClassName: 'RNSVGLinearGradient'
-    })
-);
+const RNSVGLinearGradient = requireNativeComponent('RNSVGLinearGradient');

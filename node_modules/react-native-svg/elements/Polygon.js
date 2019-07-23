@@ -1,35 +1,32 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import Path from './Path';
-import {pathProps} from '../lib/props';
+import Shape from './Shape';
 import extractPolyPoints from '../lib/extract/extractPolyPoints';
 
-export default class extends Component{
-    static displayName = 'Polygon';
-    static propTypes = {
-        ...pathProps,
-        points: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
-    };
+export default class Polygon extends Shape {
+  static displayName = 'Polygon';
 
-    static defaultProps = {
-        points: ''
-    };
+  static defaultProps = {
+    points: '',
+  };
 
-    setNativeProps = (...args) => {
-        //noinspection JSUnresolvedFunction
-        this.root.getNativeElement().setNativeProps(...args);
-    };
-
-    render() {
-        let points = this.props.points;
-        if (Array.isArray(points)) {
-            points = points.join(',');
-        }
-
-        return <Path
-            ref={ele => {this.root = ele;}}
-            {...this.props}
-            d={`M${extractPolyPoints(points)}z`}
-        />;
+  setNativeProps = props => {
+    const { points } = props;
+    if (points) {
+      props.d = `M${extractPolyPoints(points)}z`;
     }
+    this.root.setNativeProps(props);
+  };
+
+  render() {
+    const { props } = this;
+    const { points } = props;
+    return (
+      <Path
+        ref={this.refMethod}
+        d={`M${extractPolyPoints(points)}z`}
+        {...props}
+      />
+    );
+  }
 }

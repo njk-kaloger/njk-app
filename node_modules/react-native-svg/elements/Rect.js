@@ -1,58 +1,43 @@
 import React from 'react';
-import './Path'; // must import Path first, don`t know why. without this will throw an `Super expression must either be null or a function, not undefined`
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
-import {pathProps, numberProp} from '../lib/props';
-import {RectAttributes} from '../lib/attributes';
-import extractProps from '../lib/extract/extractProps';
+import { requireNativeComponent } from 'react-native';
+import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
 import Shape from './Shape';
 
-export default class extends Shape {
-    static displayName = 'Rect';
+export default class Rect extends Shape {
+  static displayName = 'Rect';
 
-    static propTypes = {
-        ...pathProps,
-        x: numberProp.isRequired,
-        y: numberProp.isRequired,
-        width: numberProp.isRequired,
-        height: numberProp.isRequired,
-        rx: numberProp,
-        ry: numberProp
-    };
+  static defaultProps = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    rx: 0,
+    ry: 0,
+  };
 
-    static defaultProps = {
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        rx: 0,
-        ry: 0
-    };
-
-    setNativeProps = (...args) => {
-        this.root.setNativeProps(...args);
-    };
-
-    render() {
-        let props = this.props;
-
-        return <RNSVGRect
-            ref={ele => {this.root = ele;}}
-            {...extractProps({
-                ...props,
-                x: null,
-                y: null
-            }, this)}
-            x={props.x.toString()}
-            y={props.y.toString()}
-            width={props.width.toString()}
-            height={props.height.toString()}
-            rx={props.rx.toString()}
-            ry={props.ry.toString()}
-        />;
-    }
+  render() {
+    const { props } = this;
+    const { x, y, width, height, rx, ry } = props;
+    return (
+      <RNSVGRect
+        ref={this.refMethod}
+        {...extractProps(
+          {
+            ...propsAndStyles(props),
+            x: null,
+            y: null,
+          },
+          this,
+        )}
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        rx={rx}
+        ry={ry}
+      />
+    );
+  }
 }
 
-const RNSVGRect = createReactNativeComponentClass('RNSVGRect', () => ({
-    validAttributes: RectAttributes,
-    uiViewClassName: 'RNSVGRect'
-}));
+const RNSVGRect = requireNativeComponent('RNSVGRect');

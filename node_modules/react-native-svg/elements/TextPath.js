@@ -1,49 +1,77 @@
 import React from 'react';
-
-import createReactNativeComponentClass from '../lib/createReactNativeComponentClass';
-import {TextPathAttributes} from '../lib/attributes';
+import { requireNativeComponent } from 'react-native';
+import extractTransform from '../lib/extract/extractTransform';
+import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
 import extractText from '../lib/extract/extractText';
+import { idPattern, pickNotNil } from '../lib/util';
 import Shape from './Shape';
-import {textPathProps} from '../lib/props';
-import extractProps from '../lib/extract/extractProps';
 import TSpan from './TSpan';
 
-const idExpReg = /^#(.+)$/;
+export default class TextPath extends Shape {
+  static displayName = 'TextPath';
 
-export default class extends Shape {
-    static displayName = 'Span';
+  setNativeProps = props => {
+    const matrix = !props.matrix && extractTransform(props);
+    if (matrix) {
+      props.matrix = matrix;
+    }
+    Object.assign(props, pickNotNil(extractText(props, true)));
+    this.root.setNativeProps(props);
+  };
 
-    static propTypes = textPathProps;
-
-    render() {
-        let {children, href, startOffset, method, spacing, side, alignmentBaseline, midLine, ...props} = this.props;
-        if (href) {
-            let matched = href.match(idExpReg);
-
-            if (matched) {
-                href = matched[1];
-                startOffset = `${startOffset || 0}`;
-                return <RNSVGTextPath
-                    {...{href, startOffset, method, spacing, side, alignmentBaseline, midLine}}
-                    {...extractProps({
-                        ...props,
-                        x: null,
-                        y: null,
-                    }, this)}
-                    {...extractText({
-                        children,
-                    }, true)}
-                />;
-            }
-        }
-
-        console.warn('Invalid `href` prop for `TextPath` element, expected a href like `"#id"`, but got: "' + props.href + '"');
-        return <TSpan>{children}</TSpan>;
+  render() {
+    const {
+      children,
+      xlinkHref,
+      href = xlinkHref,
+      startOffset = 0,
+      method,
+      spacing,
+      side,
+      alignmentBaseline,
+      midLine,
+      ...prop
+    } = this.props;
+    const matched = href && href.match(idPattern);
+    const match = matched && matched[1];
+    if (match) {
+      const props = extractProps(
+        {
+          ...propsAndStyles(prop),
+          x: null,
+          y: null,
+        },
+        this,
+      );
+      Object.assign(
+        props,
+        extractText(
+          {
+            children,
+          },
+          true,
+        ),
+        {
+          href: match,
+          startOffset,
+          method,
+          spacing,
+          side,
+          alignmentBaseline,
+          midLine,
+        },
+      );
+      props.ref = this.refMethod;
+      return <RNSVGTextPath {...props} />;
     }
 
+    console.warn(
+      'Invalid `href` prop for `TextPath` element, expected a href like "#id", but got: "' +
+        href +
+        '"',
+    );
+    return <TSpan ref={this.refMethod}>{children}</TSpan>;
+  }
 }
 
-const RNSVGTextPath = createReactNativeComponentClass('RNSVGTextPath', () => ({
-    validAttributes: TextPathAttributes,
-    uiViewClassName: 'RNSVGTextPath'
-}));
+const RNSVGTextPath = requireNativeComponent('RNSVGTextPath');

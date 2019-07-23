@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,7 +12,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.webkit.MimeTypeMap;
 
 import com.facebook.react.bridge.Arguments;
@@ -81,7 +81,7 @@ public class BlobModule extends ReactContextBaseJavaModule {
         String scheme = uri.getScheme();
         boolean isRemote = "http".equals(scheme) || "https".equals(scheme);
 
-        return (!isRemote && responseType.equals("blob"));
+        return (!isRemote && "blob".equals(responseType));
       }
 
       @Override
@@ -133,7 +133,7 @@ public class BlobModule extends ReactContextBaseJavaModule {
     new NetworkingModule.ResponseHandler() {
       @Override
       public boolean supports(String responseType) {
-        return responseType.equals("blob");
+        return "blob".equals(responseType);
       }
 
       @Override
@@ -236,7 +236,7 @@ public class BlobModule extends ReactContextBaseJavaModule {
   }
 
   private String getNameFromUri(Uri contentUri) {
-    if (contentUri.getScheme().equals("file")) {
+    if ("file".equals(contentUri.getScheme())) {
       return contentUri.getLastPathSegment();
     }
     String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
@@ -256,7 +256,7 @@ public class BlobModule extends ReactContextBaseJavaModule {
   }
 
   private long getLastModifiedFromUri(Uri contentUri) {
-    if (contentUri.getScheme().equals("file")) {
+    if ("file".equals(contentUri.getScheme())) {
       return new File(contentUri.toString()).lastModified();
     }
     return 0;

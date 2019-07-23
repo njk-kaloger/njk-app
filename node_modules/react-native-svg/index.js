@@ -12,35 +12,38 @@ import TSpan from './elements/TSpan';
 import TextPath from './elements/TextPath';
 import Use from './elements/Use';
 import Image from './elements/Image';
-import Symbol  from './elements/Symbol';
+import Symbol from './elements/Symbol';
 import Defs from './elements/Defs';
 import LinearGradient from './elements/LinearGradient';
 import RadialGradient from './elements/RadialGradient';
 import Stop from './elements/Stop';
 import ClipPath from './elements/ClipPath';
+import Pattern from './elements/Pattern';
+import Mask from './elements/Mask';
 
 export {
-    Svg,
-    Circle,
-    Ellipse,
-    G,
-    Text,
-    TSpan,
-    TextPath,
-    Path,
-    Polygon,
-    Polyline,
-    Line,
-    Rect,
-    Use,
-    Image,
-    Symbol,
-    Defs,
-    LinearGradient,
-    RadialGradient,
-    Stop,
-    ClipPath
+  Svg,
+  Circle,
+  Ellipse,
+  G,
+  Text,
+  TSpan,
+  TextPath,
+  Path,
+  Polygon,
+  Polyline,
+  Line,
+  Rect,
+  Use,
+  Image,
+  Symbol,
+  Defs,
+  LinearGradient,
+  RadialGradient,
+  Stop,
+  ClipPath,
+  Pattern,
+  Mask,
 };
 
-//noinspection JSUnusedGlobalSymbols
 export default Svg;
