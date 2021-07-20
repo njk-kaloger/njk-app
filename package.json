@@ -28,7 +28,7 @@
     "expo": "^33.0.7",
     "lodash": "^4.17.15",
     "react": "16.3.1",
-    "react-native": "^0.60.4",
+    "react-native": "^0.62.3",
     "react-native-config": "^0.11.5",
     "react-native-elements": "^0.19.1",
     "react-native-fontawesome": "^5.7.0",
